@@ -2,7 +2,7 @@
 	<swiper class="swiper-box"   :indicator-dots="true" indicator-color="#ccc"
 			indicator-active-color="#fff">
 		<swiper-item v-for="(item ,index) in info" :key="index">
-			<image :src="item.imageUrl" ></image> 
+			<image :src="item.imageUrl" mode="widthFix" ></image> 
 		</swiper-item>
 	</swiper>
 </template>

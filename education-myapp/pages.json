@@ -119,6 +119,19 @@
 					  } 
 				}
         }
+        ,{
+            "path" : "pages/info/info",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom",//禁用原生导航栏，微信小程序可用
+				"app-plus": {  
+				    "titleNView": false //禁用原生导航栏，APP和H5可用
+				  } 
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

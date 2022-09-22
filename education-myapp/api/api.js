@@ -49,8 +49,14 @@ const getWaitquestionList = (msg)=>{
 	let data = http.post('question/api/question/wait ',msg)
 	return data
 }
+/**获取详情*/
+const getinfo = ()=>{
+	let data = http.get('course/api/course/null')
+	return data
+}
 export {
 	getbanner,
+	getinfo,
 	getHotrecom,
 	getHotList,
 	getNewList,

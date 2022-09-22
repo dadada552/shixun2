@@ -16,12 +16,12 @@
 	<my-title title="热门推荐" tag='hot'></my-title>
 	<scroll-view class="hot-recom-item" scroll-x="true">
 		<view class="left">
-			<view class="item" v-for="item in hotListLeft" :key="item.id">
-				<my-goods :item="item" :flag="false"></my-goods>
+			<view class="item" @click="goinfo(item)" v-for="item in hotListLeft" :key="item.id">
+				<my-goods :item="item"  :flag="false"></my-goods>
 			</view>
 		</view>
 		<view class="right">
-			<view class="item" v-for="item in hotListRight" :key="item.id">
+			<view class="item" v-for="item in hotListRight" :key="item.id" @click="goinfo(item)">
 				<my-goods :item="item" :flag="false"></my-goods>
 			</view>
 		</view>
@@ -30,7 +30,7 @@
 	<my-title title="近期上新" tag='new'></my-title>
 		<scroll-view scroll-x="true" class="newgoods" >
 			<view class="newgoods-box">
-				<view v-for="item in newList" :key="item.id" class="newgoods-item">
+				<view v-for="item in newList" :key="item.id" class="newgoods-item" @click="goinfo(item)">
 					<my-goods   :item = 'item' :flag='true'></my-goods>
 				</view>
 			</view>
@@ -39,12 +39,12 @@
 	<my-title title="免费精选" tag="FREE"></my-title>	
 	<scroll-view class="hot-recom-item" scroll-x="true">
 		<view class="left">
-			<view class="item" v-for="item in freeListleft" :key="item.id">
+			<view class="item" v-for="item in freeListleft" :key="item.id" @click="goinfo(item)">
 				<my-goods :item="item" :flag="false"></my-goods>
 			</view>
 		</view>
 		<view class="right">
-			<view class="item" v-for="item in freeListright" :key="item.id">
+			<view class="item" v-for="item in freeListright" :key="item.id" @click="goinfo(item)">
 				<my-goods :item="item" :flag="false"></my-goods>
 			</view>
 		</view>
@@ -52,15 +52,14 @@
 	<!-- 付费精品 -->
 	<my-title title="付费精品" tag="NICE"></my-title>
 	<view class="nice-box">
-		
-		<view class="item" v-for="item in niceList" :key="item.id">
+		<view class="item" v-for="item in niceList" :key="item.id" @click="goinfo(item)">
 			<my-goods :item="item" :flag="false"></my-goods>
 		</view>
 		<view class="bottom" v-if="isshow">
 			---我是有底线的----
 		</view>
 	</view>
-	<view class="gotop iconfont" @click="gotop" v-show="gotopShow">
+	<view class="gotop iconfont" @click="gotop" v-show="gotopShow" >
 		&#xe633;
 	</view>
 </template>
@@ -117,6 +116,13 @@
 					backgroundColor: data.topbgclist[data.index],
 				})
 			}
+			/**跳转详情*/
+			const goinfo = (obj)=>{
+				console.log(obj.id);
+				uni.navigateTo({
+					url:`/pages/info/info`
+				})
+			}
 			//获取首页热门商品分类
 			getHotrecom().then((res) => {
 				data.recomList = res.data.data.slice(0, res.data.data.length - 2)
@@ -156,7 +162,8 @@
 				...toRefs(data),
 				changeBgc,
 				gotop,
-				goshowList
+				goshowList,
+				goinfo
 			}
 		},
 		onShow() {
