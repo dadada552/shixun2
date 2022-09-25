@@ -54,9 +54,29 @@ const getinfo = ()=>{
 	let data = http.get('course/api/course/null')
 	return data
 }
+const getzhangjie = ()=>{
+	let data = http.get('course/api/chapter/section/list/null')
+	return data
+}
+const getcomment = ()=>{
+	let data = http.get('course/api/comment/list/null')
+	return data
+}
+const getGroup = ()=>{
+	let data = http.get('course/api/group/list/null')
+	return data
+}
+const getsearchData = (msg)=>{
+	let data = http.post('course/api/course/search',msg)
+	return data
+}
 export {
 	getbanner,
+	getsearchData,
+	getGroup,
+	getcomment,
 	getinfo,
+	getzhangjie,
 	getHotrecom,
 	getHotList,
 	getNewList,

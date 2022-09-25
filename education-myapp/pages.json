@@ -99,9 +99,8 @@
 						},
 						"buttons": [
 							{
-							"text": "搜索",
-							"fontSrc": "static/icon/search/iconfont.ttf",
-							"fontSize": "14	px"
+							"text": "取消",
+							"fontSize": "14px"
 							}
 						]
 					}

@@ -108,7 +108,7 @@ export default {
 		margin-right: 20rpx;
 	}
 	.title{
-		font-size: 500;
+		font-size: 40rpx;
 		margin-right: 420rpx;
 	}
 	.icon{

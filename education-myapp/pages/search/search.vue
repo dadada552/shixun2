@@ -30,10 +30,12 @@ export default {
  const router = useRouter(); 
  const route = useRoute();
  const changeSearch = (val)=>{
-	 data.searchVal = val
+	uni.navigateTo({
+		url:`../showList/showList?name=${val}`
+	})
+	
  }
     return {
-
     ...toRefs(data),
 	changeSearch
     }
@@ -42,9 +44,6 @@ export default {
 	uni.navigateBack({
 		delta:1
 	})
-  },
-  onNavigationBarSearchInputConfirmed(e){
-	    console.log(e.text);
   },
 }
 </script>
