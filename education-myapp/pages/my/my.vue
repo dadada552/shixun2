@@ -1,163 +1,261 @@
 <template>
-		<view class="top">
-			<view class="login-box">
-				<view class="img-box">
-					<image src="../../static/logo.png" mode=""></image>
-				</view>
-				<view class="login">
-					请登录
-				</view>
-				<view class="go">
-					
-				</view>
-			</view>
-		</view>
-		<view class="myorder">
-			<view class="icon iconfont">
-				&#xe64d;
-			</view>
-			<view class="title">
+	<view class="my-head">
+		<div class="header-cnt" @click="login" v-if="!loginFlag">
+			<div class="left">
+				<img src="http://m.mengxuegu.com/static/logo.png" alt="">
+				<p>请登录</p>
+			</div>
+			<div class="iconfont icon-right right"></div>
+		</div>
+
+		<!-- 已登录 -->
+		<div class="header-cnt" v-if="loginFlag" @click="goUser">
+			<div class="left">
+				<img :src="userInfo.imageUrl" alt="" style="border-radius: 50%;width: 75px;height:75px;">
+				<div class="user-msg">
+					<p>{{userInfo.nickName}}</p>
+					<p style="font-size: 16px;color: #959da5;font-weight:400">用户名 : {{userInfo.username}}</p>
+				</div>
+			</div>
+			<div class="iconfont icon-right right"></div>
+		</div>
+	</view>
+
+	<div class="list">
+		<div class="list-item" @click="goOrder">
+			<div class="left">
+				<text class="iconfont icon"> &#xe64d;</text>
 				我的订单
-			</view>
-			<view class="go">
-				
-			</view>
-		</view>
-		<view class="mymoney">
-			<view class="icon iconfont">
-				&#xe699;
-			</view>
-			<view class="title">
-				我的余额
-			</view>
-			<view class="go">
-				
-			</view>
-		</view>
-		<view class="mystudy">
-			<view class="icon iconfont">
-				&#xe65c;
-			</view>
-			<view class="title">
+			</div>
+			<div class="iconfont icon-right right"></div>
+		</div>
+		<div class="list-item" @click="goBalance">
+			<div class="left">
+				<text class="icon iconfont">
+					&#xe699;
+				</text>我的余额
+			</div>
+			<div class="iconfont icon-right right"></div>
+		</div>
+		<div class="list-item" @click="goStudy">
+			<div class="left">
+				<text class="icon iconfont">&#xe65c;</text>
 				我的学习
-			</view>
-			<view class="go">
-				
-			</view>
-		</view>
-		<view class="myedit">
-			<view class="icon iconfont">
-				&#xe666;
-			</view>
-			<view class="title">
-				我的设置
-			</view>
-			<view class="go">
-				
-			</view>
-		</view>
-		<view class="myopinion">
-			<view class="icon iconfont">
-				&#xe855;
-			</view>
-			<view class="title">
+			</div>
+			<div class="iconfont icon-right right"></div>
+		</div>
+	</div>
+	<div class="list">
+		<div class="list-item" @click="goSet">
+			<div class="left">
+				<text class="icon iconfont">&#xe666;</text>
+				设置
+			</div>
+			<div class="iconfont icon-right right"></div>
+		</div>
+		<div class="list-item" @click="goFeedBack">
+			<div class="left">
+				<text class="icon iconfont">&#xe855;</text>
 				意见反馈
-			</view>
-			<view class="go">
-				
-			</view>
-		</view>
-		<view class="about">
-			<view class="icon iconfont">
-				&#xe60e;
-			</view>
-			<view class="title">
-				关于我们
-			</view>
-			<view class="go">
-				
-			</view>
-		</view>
+			</div>
+			<div class="iconfont icon-right right"></div>
+		</div>
+	</div>
+	<div class="about" @click="goAbout">
+		<div class="left">
+			<text class="icon iconfont">&#xe60e;</text>
+			关于我们
+		</div>
+		<div class="iconfont icon-right right"></div>
+	</div>
 </template>
 
-<script>
-import { reactive, toRefs } from 'vue';
-import { useRouter, useRoute} from 'vue-router'
-export default {
-  setup () {
+<script setup>
+	import {
+		reactive,
+		toRefs
+	} from 'vue'
+	import {
+		onShow
+	} from '@dcloudio/uni-app'
 
-  const data = reactive({ 
- }); 
- const router = useRouter(); 
- const route = useRoute();
-    return {
+	const data = reactive({
+		loginFlag: false, // 是否为登录的状态
+		userInfo: {}, // 用户信息
+	})
 
-    ...toRefs(data)
-    }
-  },
-}
+	const login = () => {
+		uni.navigateTo({
+			url: '/pages/login/login'
+		})
+	}
+
+	// 判断是否为登录
+	const isLogin = () => {
+		let flag = false
+		uni.getStorage({
+			key: 'loginInfo',
+			fail: function(error) {
+				uni.navigateTo({
+					url: '/pages/login/login'
+				})
+			},
+			success: (res) => {
+				if (res.data) {
+					return flag = true
+				}
+			}
+		});
+		return flag
+	}
+
+	// 去设置
+	const goSet = () => {
+		uni.navigateTo({
+			url: './set'
+		})
+	}
+
+	// 去意见反馈
+	const goFeedBack = () => {
+		uni.navigateTo({
+			url: './feedback'
+		})
+	}
+
+	// 页面挂载是判断是否为登录
+	onShow(() => {
+		uni.getStorage({
+			key: 'loginInfo',
+			success: (res) => {
+				data.loginFlag = true
+
+				// 获取本地存储
+				uni.getStorage({
+					key: 'loginInfo',
+					success: (res) => {
+						data.userInfo = JSON.parse(res.data).userInfo
+					}
+				})
+			},
+			fail: () => {
+				data.loginFlag = false
+			}
+		})
+	})
+
+	// 去个人资料
+	const goUser = () => {
+		uni.navigateTo({
+			url: '/pages/user/user'
+		})
+	}
+
+	// 去我的学习
+	const goStudy = () => {
+		if(isLogin()){
+			uni.navigateTo({
+				url: './study'
+			})
+		}
+		
+	}
+
+	// 去订单页面
+	const goOrder = () => {
+		if (isLogin()) {
+			uni.navigateTo({
+				url: '/pages/order/order'
+			})
+		}
+	}
+
+	// 去余额页面
+	const goBalance = () => {
+		if (isLogin()) {
+			uni.navigateTo({
+				url: '../order/my-balance'
+			})
+		}
+	}
+
+	// 去关于我们页面
+	const goAbout = () => {
+		if (isLogin()) {
+			uni.navigateTo({
+				url: '/pages/about/about'
+			})
+		}
+	}
+
+	const {
+		loginFlag,
+		userInfo
+	} = toRefs(data)
 </script>
 
-<style lang='scss' scoped>
-	.go{
-		width: 34rpx;
-		height: 34rpx;
-		border-right: 3px solid #aaa;
-		border-bottom: 3px solid #aaa;
-		rotate: -45deg;
-		margin-right: 20rpx;
+<style lang="scss">
+	.icon {
+		color: #39f;
+		margin-right: 5px;
 	}
-	.title{
-		font-size: 40rpx;
-		margin-right: 420rpx;
-	}
-	.icon{
-		margin-left: 20rpx;
-		color:#345DC2;
-	}
-	.mymoney,.myorder,.mystudy,.myedit,.myopinion,.about{
-		display: flex;
-		width: 100%;
-		height: 120rpx;
-		justify-content: space-around;
-		align-items: center;
-		border-bottom: 1px solid #ccc;
-	}
-		
-	.mystudy,.myopinion{
-		height: 140rpx;
-		border-bottom: 10px solid #eee;
-	}
-.top{
-	width: 100%;
-	height: 250rpx;
-	background-color: #345DC2;
-	margin-bottom: 40rpx;
 
-	.login-box{
-		height: 280rpx;
+	.about {
 		width: 100%;
-		border-radius: 40rpx 40rpx 0 0;
-		background-color: #fff;
 		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		border-bottom: 15px solid #eee;
-		.img-box{
-			width: 150rpx;
-			height: 150rpx;
-			border-radius: 50%;
-			image{
-				width: 100%;height: 100%;
-				border-radius: 50%;
+		padding: 13px 19px;
+		box-sizing: border-box;
+		justify-content: space-between;
+		border-bottom: 0.5px solid #efeff4;
+		font-size: 16px;
+	}
+
+	.list {
+		width: 100%;
+		border-bottom: 10px solid #f8f9fb;
+		font-size: 16px;
+
+		.list-item {
+			width: 100%;
+			display: flex;
+			padding: 13px 19px;
+			box-sizing: border-box;
+			justify-content: space-between;
+			border-bottom: 0.5px solid #efeff4;
+		}
+	}
+
+	.right {
+		font-size: 17px;
+		color: #959da5;
+	}
+
+	.my-head {
+		background-color: #345dc2;
+
+		.header-cnt {
+			width: 100%;
+			padding: 25px 19px;
+			background-color: #fff;
+			border-radius: 15px 15px 0 0;
+			display: flex;
+			justify-content: space-between;
+			box-sizing: border-box;
+			align-items: center;
+			border-bottom: 10px solid #f8f9fb;
+
+			.left {
+				display: flex;
+				align-items: center;
+				font-size: 19px;
+				font-weight: 700;
+
+
+				img {
+					width: 140rpx;
+					margin-right: 10px;
+				}
 			}
 		}
-		.login{
-			font-size: 60rpx;
-			font-weight: 700;
-			margin-right: 260rpx;
-		}
-		
 	}
-}
 </style>

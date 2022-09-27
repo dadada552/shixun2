@@ -8,7 +8,7 @@ let BASE_URL = 'https://mock.mengxuegu.com/mock/5fdc6ffb5b350029c77c973a/mxg-edu
 
 // #ifdef H5
 // h5, 进行代理转发
-let BASE_URL = '/api' // 'http://39.108.187.100:6001'
+let BASE_URL = 'http://m.mengxuegu.com/api' // 'http://39.108.187.100:6001'
 // #endif
 
 const request = (options = {}) => {

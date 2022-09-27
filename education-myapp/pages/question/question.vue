@@ -1,238 +1,126 @@
 <template>
-	<scroll-view scroll-X="true" class="top">
-		<view :class=" activeIndex == 0 ? 'topitem active' : 'topitem' " @click="changeindex('hot',0)">
-			热门回答
-		</view>
-		<view :class=" activeIndex == 1 ? 'topitem active' : 'topitem' " @click="changeindex('new',1)">
-			最新问题
-		</view>
-		<view :class=" activeIndex == 2 ? 'topitem active' : 'topitem' " @click="changeindex('wait',2)">
-			等待回答
-		</view>
-		
-	</scroll-view>
+	<!-- 头部背景 -->
+	<view class="topBg" />
 
+	<my-question :replyList="replyList" :flag="flag"></my-question>
 
-	<swiper class="swiper-box" @change="changePage" :current="activeIndex">
-		<swiper-item v-for="item in 3">
-			<scroll-view class="scroll-box" scroll-y="true">
-				<view class="content">
-					<view class="content-item" v-for="item in hotQuestionList" :key="item.id">
-						<view class="title">
-							{{item.title}}
-						</view>
-						<view class="bottom-box">
-							<view class="left">
-								{{item.reply}}回复 {{item.thumhup}}浏览
-							</view>
-							<view class="right">
-								{{item.nickName}}·{{item.updateDate}}
-							</view>
-						</view>
-					</view>
-				</view>
-			</scroll-view>
-			<view class="bottom" v-if="isshow">
-				---我是有底线的----
-			</view>
-		</swiper-item>
-	</swiper>
+	<!-- 导航栏 -->
+	<my-nav :data="navList" @chengNav="chengNav"></my-nav>
 
-	<gotop :gotopShow="gotopShow"></gotop>
+	<!-- 返回顶部 -->
+	<back-top :showFlag="showFlag"></back-top>
 </template>
 
-<script>
+<script setup>
+	import {
+		getReplyList
+	} from '../../api/api.js'
 	import {
 		reactive,
 		toRefs
-	} from 'vue';
+	} from 'vue'
 	import {
-		useRouter,
-		useRoute
-	} from 'vue-router'
+		timer
+	} from '@/utils/time.js'
 	import {
-		getHotquestionList,
-		getNewquestionList,
-		getWaitquestionList
-	} from '@/api/api.js'
-	import gotop from '@/components/gotop/gotop.vue'
-	export default {
-		setup() {
+		onReachBottom,
+		onPullDownRefresh,
+		onPageScroll
+	} from "@dcloudio/uni-app";
 
-			const data = reactive({
-				activeIndex: 0,
-				hotQuestionList: [],
-				gotopShow: false,
-				status: true,
-				current: 1,
-				isshow: false
-			});
-			const router = useRouter();
-			const route = useRoute();
-			getHotquestionList({
-				current: 1,
-				size: 10
-			}).then((res) => {
-				data.hotQuestionList = res.data.data.records
-			})
-			const changePage = (e) => {
-				// console.log(e.detail.current);
-				data.activeIndex = e.detail.current
-				if (data.activeIndex == 0) {
-					getHotquestionList({
-						current: 1,
-						size: 10
-					}).then((res) => {
-						data.hotQuestionList = res.data.data.records
-						data.isshow = false
-					})
-				} else if (data.activeIndex == 1) {
-					getNewquestionList({
-						current: 1,
-						size: 10
-					}).then((res) => {
-						data.hotQuestionList = res.data.data.records
-						data.isshow = false
-					})
-				} else {
-					getWaitquestionList({
-						current: 1,
-						size: 10
-					}).then((res) => {
-						data.hotQuestionList = res.data.data.records
-						data.isshow = false
-					})
-				}
+	const data = reactive({
+		// 问答列表
+		replyList: [],
+		// 导航栏数据
+		navList: [{
+			id: 0,
+			type: 'hot',
+			name: '热门回答'
+		}, {
+			id: 1,
+			type: 'new',
+			name: '最新回答'
+		}, {
+			id: 2,
+			type: 'wait',
+			name: '等待回答'
+		}, ],
+		// 当前页码
+		currentPage: 1,
+		// 返回顶部按钮
+		showFlag: false,
+		// 暂无消息提示
+		flag: false,
+		// 暂存类型
+		type:'hot'
+	})
+
+	// 封装请求问答列表
+	const getList = (type) => {
+		getReplyList({
+			type,
+			current: data.currentPage,
+			size: 10
+		}).then(res => {
+			if (data.currentPage >= 5) {
+				data.flag = 1
+				return false
 			}
-			const changeindex = (type, index) => {
-				data.activeIndex = index
-				
-			}
-			return {
-				changeindex,
-				changePage,
-				...toRefs(data)
-			}
-		},
-		onReachBottom() {
-			this.current++;
-			console.log(1);
-			if (this.hotQuestionList.length > 40) {
-				return this.isshow = true
+			data.flag = 0
+			if (data.currentPage == 1) {
+				data.replyList = res.data.data.records
 			} else {
-				if (this.activeIndex == 0) {
-					getHotquestionList({
-						current: this.current,
-						size: 10
-					}).then((res) => {
-						this.hotQuestionList = [...this.hotQuestionList, ...res.data.data.records]
-					})
-				} else if (this.activeIndex == 1) {
-					console.log(1);
-					getNewquestionList({
-						current: this.current,
-						size: 10
-					}).then((res) => {
-						this.hotQuestionList = [...this.hotQuestionList, ...res.data.data.records]
-					})
-				} else {
-					getWaitquestionList({
-						current: this.current,
-						size: 10
-					}).then((res) => {
-						this.hotQuestionList = [...this.hotQuestionList, ...res.data.data.records]
-					})
-				}
+				data.replyList = [...data.replyList, ...res.data.data.records]
 			}
-
-
-		},
-		onPageScroll(e) {
-			console.log(e);
-			if (e.scrollTop >= 800) {
-				this.gotopShow = true
-			} else {
-				this.gotopShow = false
-			}
-		}
+		})
 	}
+
+	// 监听页面滚动
+	onPageScroll((e) => {
+		if (e.scrollTop > 300) {
+			data.showFlag = true
+		} else {
+			data.showFlag = false
+		}
+	})
+
+	getList('hot')
+
+	// 切换导航栏
+	const chengNav = (id) => {
+		const type = data.navList.filter(item => item.id == id)[0].type
+		data.type = type
+		getList(type)
+	}
+
+	// 触底加载
+	onReachBottom(() => {
+		data.currentPage++
+		getList('hot')
+	})
+
+	// 下拉刷新
+	onPullDownRefresh(() => {
+		data.currentPage = 1
+		data.flag = 0
+		getList(data.type)
+		// 定时器结束动画
+		setTimeout(function() {
+			uni.stopPullDownRefresh();
+		}, 1000);
+	})
+
+	const {
+		replyList,
+		navList,
+		showFlag,
+		flag
+	} = toRefs(data)
 </script>
 
-<style lang='scss' scoped>
-	.scroll-box {
-		height: calc(100vh - 210rpx);
-	}
-
-	.top {
-		white-space: nowrap;
-		position: fixed;
-		top: 80rpx;
-		left: 0;
-		background-color: #fff;
-		z-index: 99;
-		height: 80rpx;
-		line-height: 80rpx;
-		text-align: center;
-
-		.topitem {
-			display: inline-block;
-			width: 30%;
-		}
-
-		.active {
-			color: #36f;
-			position: relative;
-		}
-
-		.active::after {
-			content: '';
-			position: absolute;
-			bottom: 0;
-			left: 50rpx;
-			width: 120rpx;
-			height: 5rpx;
-			background-color: #36f;
-		}
-	}
-
-	.swiper-box {
-		height: calc(100vh - 210rpx);
-	}
-
-	.content {
-		width: 100%;
-		margin-top: 130rpx;
-		padding: 0 30rpx;
-		white-space: nowrap;
-
-		.content-item {
-			height: 150rpx;
-			width: 100%;
-
-			.title {
-				font-weight: 600;
-				font-size: 32rpx;
-			}
-
-			.bottom-box {
-				display: flex;
-				justify-content: space-between;
-				color: #999;
-
-				.left {
-					width: 30%;
-				}
-
-				.right {
-					width: 60%;
-				}
-			}
-		}
-	}
-
-	.bottom {
-		text-align: center;
-		height: 200rpx;
-		line-height: 200rpx;
+<style lang="scss">
+	.topBg {
+		background-color: #345DC2;
+		height: 45px;
 	}
 </style>

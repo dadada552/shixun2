@@ -1,319 +1,213 @@
 <template>
 	<!-- 轮播图 -->
-	<view class="banner-box" :style="{backgroundImage: bgcList[index]}">
-		<mxgBanner ref="bannerbox" @change="changeBgc"></mxgBanner>
+	<view class="banner-box" :style="{'background-image': `linear-gradient(${bannerBackground} 50%, #F8F9FB)`}">
+		<my-banner :bannerData="bannerData" @change="change"></my-banner>
 	</view>
-	<!-- 热门推荐分类 -->
-	<view class="hot-recom">
-		<view class="recom-item" v-for=" item in recomList" :key="item.id" @click="goshowList(item)">
-			{{item.name}}
-		</view>
-		<view class="recom-item">
-			全部分类
-		</view>
-	</view>
-	<!-- 热门推荐 -->
-	<my-title title="热门推荐" tag='hot'></my-title>
-	<scroll-view class="hot-recom-item" scroll-x="true">
-		<view class="left">
-			<view class="item" @click="goinfo(item)" v-for="item in hotListLeft" :key="item.id">
-				<my-goods :item="item"  :flag="false"></my-goods>
-			</view>
-		</view>
-		<view class="right">
-			<view class="item" v-for="item in hotListRight" :key="item.id" @click="goinfo(item)">
-				<my-goods :item="item" :flag="false"></my-goods>
-			</view>
-		</view>
-	</scroll-view>
-	<!-- 近期上新 -->
-	<my-title title="近期上新" tag='new'></my-title>
-		<scroll-view scroll-x="true" class="newgoods" >
-			<view class="newgoods-box">
-				<view v-for="item in newList" :key="item.id" class="newgoods-item" @click="goinfo(item)">
-					<my-goods   :item = 'item' :flag='true'></my-goods>
-				</view>
-			</view>
-		</scroll-view>
-		<!-- 免费精选 -->
-	<my-title title="免费精选" tag="FREE"></my-title>	
-	<scroll-view class="hot-recom-item" scroll-x="true">
-		<view class="left">
-			<view class="item" v-for="item in freeListleft" :key="item.id" @click="goinfo(item)">
-				<my-goods :item="item" :flag="false"></my-goods>
-			</view>
-		</view>
-		<view class="right">
-			<view class="item" v-for="item in freeListright" :key="item.id" @click="goinfo(item)">
-				<my-goods :item="item" :flag="false"></my-goods>
-			</view>
-		</view>
-	</scroll-view>
-	<!-- 付费精品 -->
-	<my-title title="付费精品" tag="NICE"></my-title>
-	<view class="nice-box">
-		<view class="item" v-for="item in niceList" :key="item.id" @click="goinfo(item)">
-			<my-goods :item="item" :flag="false"></my-goods>
-		</view>
-		<view class="bottom" v-if="isshow">
-			---我是有底线的----
-		</view>
-	</view>
-	<view class="gotop iconfont" @click="gotop" v-show="gotopShow" >
-		&#xe633;
-	</view>
-</template>
 
-<script>
+	<!-- 分类区 -->
+	<view class="category-box">
+		<my-category :categoryData="categoryData.slice(0,7)"></my-category>
+	</view>
+
+	<!-- 热门推荐 -->
+	<my-list :data="hotList"></my-list>
+
+	<!-- 近期上新 -->
+	<my-list :data="newList" scroll="false" title="近期上新" word="NEW"></my-list>
+
+	<!-- 免费精选 -->
+	<my-list :data="freeList" title="免费精选" word="FREE"></my-list>
+
+	<!-- 付费精选 -->
+	<my-list :data="paymentList" title="付费精选" word="NICE" :flag="showMsg"></my-list>
+
+	<!-- 返回顶部 -->
+	<back-top :showFlag="showFlag"></back-top>
+
+	<view class="null"></view>
+
+</template>
+<script setup>
 	import {
 		reactive,
-		toRefs
-	} from 'vue';
+		toRefs,
+	} from 'vue'
 	import {
-		useRouter,
-		useRoute
-	} from 'vue-router'
-	import mxgBanner from '@/components/mxg-banner/mxg-banner.vue'
-	import myTitle from '@/components/my-title/my-title.vue'
-	import mygoods from '@/components/my-goods/my-goods.vue'
+		getHotrecom,
+		getbanner,
+		getHotList,
+		getNewList,
+		getFreeList,
+		getPaymentList,
+	} from '../../api/api.js'
 	import {
-		getHotrecom,getHotList,getNewList,getFreeList,getNiceList
-	} from '@/api/api.js'
-	export default {
-		components: {
-			mxgBanner
-		},
-		setup() {
-			const data = reactive({
-				bgcList: [
-					'linear-gradient(rgb(0, 108, 0) 50%, rgb(255, 255, 255))',
-					'linear-gradient(rgb(69, 50, 140) 50%, rgb(255, 255, 255))',
-					'linear-gradient(rgb(0, 114, 183) 50%, rgb(255, 255, 255))'
-				],
-				topbgclist: [
-					'#006c00', '#45328c', '#0072b7'
-				],
-				index: 0,
-				recomList: [],
-				hotListLeft: [],
-				hotListRight:[],
-				newList:[],
-				freeListleft:[],
-				freeListright:[],
-				niceList:[],
-				current:1,
-				status:true,
-				isshow:false,
-				gotopShow:false
-			});
-			const router = useRouter();
-			const route = useRoute();
-			//设置 顶部导航栏跟随轮播图改变颜色
-			const changeBgc = (e) => {
-				data.index = e.detail.current
-				uni.setNavigationBarColor({
-					frontColor: '#ffffff',
-					backgroundColor: data.topbgclist[data.index],
-				})
-			}
-			/**跳转详情*/
-			const goinfo = (obj)=>{
-				console.log(obj.id);
-				uni.navigateTo({
-					url:`/pages/info/info`
-				})
-			}
-			//获取首页热门商品分类
-			getHotrecom().then((res) => {
-				data.recomList = res.data.data.slice(0, res.data.data.length - 2)
-			})
-			// 获取热门推荐
-			getHotList({current:1,size:8,sort:'hot'}).then((res)=>{
-				data.hotListLeft = res.data.data.records.slice(0,5)
-				data.hotListRight = res.data.data.records.slice(5,res.data.data.records.length)
-			})
-			//获取近期上新
-			getNewList({current:1,size:8,sort:'new'}).then((res)=>{
-				// console.log(res);
-				data.newList = res.data.data.records
-			})
-			//获取免费精选
-			getHotList({current:1,size:8,isFree:'1'}).then((res)=>{
-				data.freeListleft = res.data.data.records.slice(0,5)
-				data.freeListright = res.data.data.records.slice(5,res.data.data.records.length)
-			})
-			//获取付费精品
-			getNiceList({current:1,size:8,isFree:'0'}).then((res)=>{
-				data.niceList = res.data.data.records
-			})
-			/**回到顶部*/
-			const gotop = ()=>{
-				uni.pageScrollTo({
-					scrollTop:0
-				})
-			}
-			/**点击跳转*/
-			const goshowList = (item)=>{
-				uni.navigateTo({
-					url:`../showList/showList?id=${item.id}&&name=${item.name}`
-				})
-			}
-			return {
-				...toRefs(data),
-				changeBgc,
-				gotop,
-				goshowList,
-				goinfo
-			}
-		},
-		onShow() {
-			// 默认设置顶部导航栏颜色
-			uni.setNavigationBarColor({
-				frontColor: '#ffffff',
-				backgroundColor: '#006c00',
+		onReachBottom,
+		onPullDownRefresh,
+		onPageScroll,
+		onNavigationBarSearchInputClicked,
+		onShow
+	} from "@dcloudio/uni-app";
 
-			})
-		},
-		//下拉加载数据
-		onReachBottom() {
-			if(this.status){
-				this.status =false
-				this.current ++;
-				if(this.niceList.length > 40){
-					return this.isshow = true
-				}else{
-						getNiceList({current:this.current,size:8,isFree:'0'}).then((res)=>{
-								this.niceList = [...this.niceList,...res.data.data.records]
-								
-							})
-						let timer =	setTimeout(()=>{
-								this.status = true
-							},1000)
-				}
-					
-			}
-		},
-		//监听页面滚动
-		onPageScroll(e){
-			if(e.scrollTop>=1700){
-				this.gotopShow = true
-			}else{
-				this.gotopShow = false
-			}
-		},
-		onNavigationBarSearchInputClicked(e){
-			uni.navigateTo({
-				url:'../search/search'
-			})
+	const data = reactive({
+		// 轮播图数据
+		bannerData: [],
+		// 轮播图当前页
+		current: 0,
+		// 背景色
+		bannerBackground: '#006C00',
+		// 分类区功能
+		categoryData: [],
+		// 热门推荐
+		hotList: [],
+		// 近期上新
+		newList: [],
+		// 当前页码
+		currentPage: 1,
+		// 免费精选
+		freeList: [],
+		// 付费精选
+		paymentList: [],
+		// 暂无消息提示状态
+		showMsg: 0,
+		// 返回顶部按钮显示隐藏
+		showFlag: false
+	})
+
+	// 解决返回顶部显示bug
+	onShow(() => {
+		data.showFlag = false
+	})
+
+	// 点击头部导航栏跳转
+	onNavigationBarSearchInputClicked(() => {
+		uni.navigateTo({
+			url: '/pages/search/search'
+		})
+	})
+
+	// 监听页面滚动事件
+	onPageScroll((e) => {
+		if (e.scrollTop > 300) {
+			data.showFlag = true
+		} else {
+			data.showFlag = false
 		}
-		// onNavigationBarButtonTap(e) {
-		// 	console.log("success")		
-		// },
+	})
+
+	// 请求首页轮播图
+	getbanner().then(res => {
+		data.bannerData = res.data.data
+	})
+
+	// 请求首页分类
+	getHotrecom().then(res => {
+		data.categoryData = res.data.data
+	})
+
+	// 请求首页热门推荐
+	getHotList({
+		sort: "hot",
+		current: 1,
+		size: 10
+	}).then(res => {
+		data.hotList = res.data.data.records
+	})
+
+	// 请求近期上新
+	getHotList({
+		sort: "new",
+		current: 1,
+		size: 10
+	}).then(res => {
+		data.newList = res.data.data.records
+	})
+
+	// 请求免费精选
+	getFreeList({
+		isFree: 1,
+		current: 1,
+		size: 8
+	}).then(res => {
+		data.freeList = res.data.data.records
+	})
+
+	// 封装请求付费精品
+	const getPaymentLists = () => {
+		// 请求付费精品
+		getPaymentList({
+			isFree: 0,
+			current: data.currentPage,
+			size: 10
+		}).then(res => {
+			// 最大限制
+			if (data.currentPage >= 5) {
+				data.showMsg = 1
+				return false
+			}
+			data.showMsg = 2
+			// 合并/第一次请求
+			if (data.currentPage == 1) {
+				data.paymentList = res.data.data.records
+			} else {
+				data.paymentList = [...data.paymentList, ...res.data.data.records]
+			}
+		})
 	}
+
+	// 调用付费
+	getPaymentLists()
+
+	// 背景图切换事件
+	const change = (e) => {
+		data.current = e.detail.current
+		data.bannerBackground = data.bannerData[e.detail.current].background
+	}
+
+	// 页面触底事件
+	onReachBottom(() => {
+		data.currentPage = data.currentPage + 1
+		getPaymentLists()
+	})
+
+	// 页面刷新
+	onPullDownRefresh(() => {
+		data.currentPage = 1
+		getPaymentLists()
+		// 定时器结束动画
+		setTimeout(function() {
+			uni.stopPullDownRefresh();
+		}, 1000);
+	})
+
+
+
+	// 使用 toRefs
+	const {
+		bannerData,
+		current,
+		bannerBackground,
+		categoryData,
+		hotList,
+		newList,
+		freeList,
+		paymentList,
+		showMsg,
+		showFlag
+	} = toRefs(data)
 </script>
 
-<style lang='scss' scoped>
-	.gotop{
-		position: fixed;
-		width: 100rpx;
-		height: 100rpx;
-		bottom: 150rpx;
-		right: 20rpx;
-		background-color: #ccc;
-		border-radius: 50%;
-		color: #fff;
-		line-height: 100rpx;
-		text-align: center;
-		font-size: 50rpx
-	}
+<style lang='scss'>
 	.banner-box {
+		padding-top: 90rpx;
+	}
+
+	.category-box {
 		width: 100%;
-		height: 450rpx;
-		padding: 20rpx;
-		padding-top: 20px;
+		margin: 10px 0;
 	}
 
-	.hot-recom {
-		width: 100%;
-		height: 150rpx;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
-		background-color: #fff;
-		padding: 0 40rpx;
-		margin-bottom: 50rpx;
-
-		.recom-item {
-			flex: 20%;
-			margin: 0 10rpx;
-			text-align: center;
-			background-color: #eee;
-			border-radius: 20rpx;
-			margin-top: 10rpx;
-			line-height: 70rpx;
-			font-size: 13px;
-		}
-	}
-
-	.hot-recom-item {
-		white-space: nowrap;
-
-		.left {
-			display: inline-block;
-			width: 700rpx;
-			.item {
-				display: flex;
-				justify-content: space-around;
-				height: 220rpx;
-				width: 90%;
-				padding-bottom: 20rpx;
-				border-bottom: 1px dashed #ccc;
-				margin-left: 20rpx;
-			}
-		}
-
-		.right {
-			display: inline-block;
-			width: 700rpx;
-			.item {
-				display: flex;
-				justify-content: space-around;
-				height: 220rpx;
-				width: 100%;
-				padding-bottom: 20rpx;
-				border-bottom: 1px dashed #ccc;
-				margin-left: 20rpx;
-			}
-		}
-	}
-	.newgoods{
-		white-space: nowrap;
-		margin: 30rpx 0;
-		height: 380rpx;
-		.newgoods-box{
-			display: flex;
-			
-			.newgoods-item{
-				margin: 0 20rpx;
-				box-shadow: 1px 1px 3px rgb(0 0 0 / 10%);
-			}
-		}
-	}
-	.nice-box{
-		width: 100%;
-		.item {
-				display: flex;
-				justify-content: space-around;
-				height: 220rpx;
-				width: 90%;
-				padding-bottom: 20rpx;
-				border-bottom: 1px dashed #ccc;
-				margin-left: 20rpx;
-			}
-			.bottom{
-				text-align: center;
-				height: 200rpx;
-				line-height: 200rpx;
-			}
+	.null {
+		margin-top: 80px;
+		height: 1px;
 	}
 </style>

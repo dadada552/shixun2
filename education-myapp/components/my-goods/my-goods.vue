@@ -1,5 +1,5 @@
 <template>
-	<view :class= " flag ? 'top': 'left'">
+	<view :class=" flag ? 'top': 'left'" @click="goDetail">
 		<view class="imgbox">
 			<image :src="item.mainImage"></image>
 		</view>
@@ -7,12 +7,12 @@
 			{{item.totalTime}}
 		</view>
 	</view>
-	<view :class= " flag ? 'bottom': 'right'">
+	<view :class=" flag ? 'bottom': 'right'">
 		<view class="name">
 			{{item.title}}
 		</view>
 		<view class="teacher">
-			<view class="iconfont" style="font-size: 30rpx;color: #aaa;">&#xe6a2;</view>
+			<view class="iconfont icon-laoshi2" style="font-size: 30rpx;color: #aaa;"></view>
 			<view class="teacher-name">
 				{{item.nickName}}
 			</view>
@@ -38,13 +38,15 @@
 	} from 'vue';
 	export default {
 		name: "my-goods",
-		props: ['item','flag'],
+		props: ['item', 'flag'],
 		setup(props, ctx) {
-			const data = reactive({
-
-			});
+			const goDetail = () => {
+				uni.navigateTo({
+					url: '/pages/detail/detail'
+				})
+			}
 			return {
-				...toRefs(data),
+				goDetail
 			}
 		}
 	}
@@ -64,8 +66,8 @@
 
 		.totaltime {
 			position: absolute;
-			bottom: 5rpx;
-			right: 5rpx;
+			bottom: 10rpx;
+			right: 10rpx;
 			font-size: 13rpx;
 			color: #fff;
 			background-color: rgba(51, 51, 51, .4);
@@ -76,6 +78,7 @@
 
 	.right {
 		flex: 1;
+
 		.teacher {
 			display: flex;
 			margin-top: 45rpx;
@@ -86,6 +89,7 @@
 			height: 80rpx;
 			white-space: normal;
 			word-break: break-all;
+			font-weight: 700;
 		}
 
 		.right-bottom {
@@ -108,15 +112,17 @@
 		}
 
 	}
-	
-	.top{
+
+	.top {
 		width: 300rpx;
 		position: relative;
+
 		image {
 			width: 100% !important;
 			height: 160rpx !important;
 			border-radius: 20rpx;
 		}
+
 		.totaltime {
 			position: absolute;
 			top: 130rpx;
@@ -128,39 +134,39 @@
 			padding: 0 5rpx;
 		}
 	}
-	
-	.bottom{
+
+	.bottom {
 		width: 300rpx;
+
 		.teacher {
 			display: flex;
 			margin-top: 45rpx;
 			font-size: 20rpx;
 		}
-		
+
 		.name {
 			height: 70rpx;
 			white-space: normal;
 			word-break: break-all;
 		}
-		
+
 		.right-bottom {
 			display: flex;
 			justify-content: space-between;
 			line-height: 40rpx;
-		
+
 			.ispay {
 				color: #fb6932;
 			}
-		
+
 			.studybox {
 				display: flex;
 				font-size: 30rpx;
+
 				.studynum {
 					font-size: 20rpx;
 				}
 			}
 		}
 	}
-	
-	
 </style>

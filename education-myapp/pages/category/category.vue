@@ -1,108 +1,127 @@
 <template>
-	<view class="cate-box">
-		<view class="left-box">
-			<scroll-view class="scroll-view" scroll-y="true">
-				<view :class="navindex == index ? ' active scroll-view-item' :'scroll-view-item' "
-				 v-for="item,index in hotTitleList" :key="item.id" @click="changeIndex(item,index)">
-					{{item.name}}
-				</view>
-			</scroll-view>
-		</view>
-		<view class="right-box" >
-			<view class="right-item" v-for="item in induceList" :key="item.id">
+	<view class="category">
+		<!-- 左侧菜单栏 -->
+		<scroll-view scroll-y="true" class="category-aside">
+			<view :class="{'aside-item':true,'active':asideId == item.id}" v-for="item in categoryList" :key="item.id"
+				@click="changCategory(item)">
 				{{item.name}}
 			</view>
+		</scroll-view>
+
+		<!-- 右侧内容 -->
+		<view class="category-cnt">
+			<div class="cnt-tag">
+				<div class="tag" v-for="item in tagList" :key="item.id" @click="changeSearch(item.name)">{{item.name}}
+				</div>
+			</div>
 		</view>
 	</view>
-	
 </template>
 
-<script>
-import { reactive, toRefs } from 'vue';
-import { useRouter, useRoute} from 'vue-router'
-import {getHotrecom} from '@/api/api.js'
-export default {
-  setup () {
+<script setup>
+	import {
+		reactive,
+		toRefs
+	} from 'vue'
+	import {
+		getHotrecom
+	} from '../../api/api.js'
 
-  const data = reactive({ 
-	  hotTitleList:[],
-	  navindex:0,
-	  induceList:[]
- }); 
- const router = useRouter(); 
- const route = useRoute();
-	getHotrecom().then((res)=>{
-		data.hotTitleList = res.data.data
-		data.induceList = res.data.data[0].labelList
+	const data = reactive({
+		// 分类数据
+		categoryList: [],
+		// 侧边栏高亮id
+		asideId: 1,
+		// 侧边栏对应的标签
+		tagList: []
 	})
-	const changeIndex = (obj,index) =>{
-		data.navindex = index
-	let item =	data.hotTitleList.find((item)=>item.id == obj.id)
-		data.induceList = item.labelList
+
+	// 请求分类列表
+	getHotrecom().then(res => {
+		data.categoryList = res.data.data
+		data.tagList = data.categoryList[0].labelList
+	})
+
+	const changeSearch = (val) => {
+		uni.navigateTo({
+			url: `/pages/showList/showList?name=${val}`
+		})
 	}
-    return {
-    ...toRefs(data),
-	changeIndex
-    }
-  },
-}
+
+	// 切换侧边栏
+	const changCategory = (obj) => {
+		data.asideId = obj.id
+		data.tagList = obj.labelList
+	}
+
+	const {
+		categoryList,
+		asideId,
+		tagList
+	} = toRefs(data)
 </script>
 
-<style lang='scss' scoped>
-.cate-box{
-	display: flex;
-	width: 100%;
-	.left-box{
-		width: 30%;
-		background-color: #eee;
-		.scroll-view{
-			width: 100%;
-			height: calc(100vh - 100rpx - 80rpx);
-			.scroll-view-item{
-				text-align: center;
-				height: 200rpx;
-				line-height: 200rpx;
-				font-size: 30rpx;
-				font-weight: 600;
-			}
-			.active{
-				color: #36f;
-				position: relative;
-			}
-			.active::before{
-				content: '';
-				position: absolute;
-				left: 0;
-				top: 20rpx;
-				width: 10rpx;
-				height: 160rpx;
-				background-color: #36f;
-				border-radius: 2rpx;
-			}
-		}
+<style lang="scss">
+	.active {
+		color: #345dc2 !important;
+		font-size: 16px;
+		font-weight: 700
 	}
-	.right-box{
-		flex: 1;
-		display: grid;
-		margin-top: 30rpx;
-		grid-template:
-			'a1 a2 a3' 80rpx
-			'a4 a5 a6' 80rpx
-			/ 150rpx 150rpx 150rpx;
-			justify-content: end;
-			align-content: start;
-			column-gap: 30rpx;
-			row-gap: 30rpx;
-		.right-item{
-			border: 1px solid #333;
-			line-height: 80rpx;
-			text-align: center;
-			border-radius: 35rpx;
-		}
-	}
-	::-webkit-scrollbar {
+
+	.active:before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 0;
 		width: 0;
-		height: 0;
+		height: 40rpx;
+		border-right: 3px solid #345dc2;
+		transform: translateY(-50%);
+		border-radius: 15px;
 	}
-}
+
+	.category {
+		width: 100%;
+		display: flex;
+
+		.category-aside {
+			width: 25%;
+			height: calc(100vh - 60px);
+			background-color: #f8f9fb;
+			padding-bottom: 80rpx;
+
+			.aside-item {
+				position: relative;
+				width: 100%;
+				height: 150rpx;
+				font-size: 15px;
+				color: #888;
+				text-align: center;
+				line-height: 150rpx;
+			}
+		}
+
+		.category-cnt {
+			flex: 1;
+
+			.cnt-tag {
+				width: 100%;
+				padding: 10px;
+				display: flex;
+				flex-wrap: wrap;
+
+				.tag {
+					width: 80px;
+					font-size: 12px;
+					line-height: 30px;
+					border: 1px solid #999;
+					border-radius: 15px;
+					min-width: 80px;
+					text-align: center;
+					padding: 0 2px;
+					margin: 7px 2px;
+				}
+			}
+		}
+	}
 </style>
