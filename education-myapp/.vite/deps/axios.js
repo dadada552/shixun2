@@ -12,18 +12,11 @@ var init_define_process_env_UNI_STAT_TITLE_JSON = __esm({
   }
 });
 
-// <define:process.env.UNI_STAT_UNI_CLOUD>
-var init_define_process_env_UNI_STAT_UNI_CLOUD = __esm({
-  "<define:process.env.UNI_STAT_UNI_CLOUD>"() {
-  }
-});
-
 // C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/bind.js
 var require_bind = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/bind.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     module.exports = function bind(fn, thisArg) {
       return function wrap() {
         var args = new Array(arguments.length);
@@ -41,7 +34,6 @@ var require_utils = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/utils.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var bind = require_bind();
     var toString = Object.prototype.toString;
     var kindOf = function(cache) {
@@ -259,7 +251,6 @@ var require_buildURL = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/buildURL.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     function encode(val) {
       return encodeURIComponent(val).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
@@ -312,7 +303,6 @@ var require_InterceptorManager = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/core/InterceptorManager.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     function InterceptorManager() {
       this.handlers = [];
@@ -347,7 +337,6 @@ var require_normalizeHeaderName = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/normalizeHeaderName.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     module.exports = function normalizeHeaderName(headers, normalizedName) {
       utils.forEach(headers, function processHeader(value, name) {
@@ -365,7 +354,6 @@ var require_AxiosError = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/core/AxiosError.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     function AxiosError(message, code, config, request, response) {
       Error.call(this);
@@ -430,7 +418,6 @@ var require_transitional = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/defaults/transitional.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     module.exports = {
       silentJSONParsing: true,
       forcedJSONParsing: true,
@@ -444,7 +431,6 @@ var require_toFormData = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/toFormData.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     function toFormData(obj, formData) {
       formData = formData || new FormData();
@@ -500,7 +486,6 @@ var require_settle = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/core/settle.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var AxiosError = require_AxiosError();
     module.exports = function settle(resolve, reject, response) {
       var validateStatus = response.config.validateStatus;
@@ -518,7 +503,6 @@ var require_cookies = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/cookies.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     module.exports = utils.isStandardBrowserEnv() ? function standardBrowserEnv() {
       return {
@@ -566,7 +550,6 @@ var require_isAbsoluteURL = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/isAbsoluteURL.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     module.exports = function isAbsoluteURL(url) {
       return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
     };
@@ -578,7 +561,6 @@ var require_combineURLs = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/combineURLs.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     module.exports = function combineURLs(baseURL, relativeURL) {
       return relativeURL ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
     };
@@ -590,7 +572,6 @@ var require_buildFullPath = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/core/buildFullPath.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var isAbsoluteURL = require_isAbsoluteURL();
     var combineURLs = require_combineURLs();
     module.exports = function buildFullPath(baseURL, requestedURL) {
@@ -607,7 +588,6 @@ var require_parseHeaders = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/parseHeaders.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     var ignoreDuplicateOf = [
       "age",
@@ -661,7 +641,6 @@ var require_isURLSameOrigin = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/isURLSameOrigin.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     module.exports = utils.isStandardBrowserEnv() ? function standardBrowserEnv() {
       var msie = /(msie|trident)/i.test(navigator.userAgent);
@@ -703,7 +682,6 @@ var require_CanceledError = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/cancel/CanceledError.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var AxiosError = require_AxiosError();
     var utils = require_utils();
     function CanceledError(message) {
@@ -722,7 +700,6 @@ var require_parseProtocol = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/parseProtocol.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     module.exports = function parseProtocol(url) {
       var match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url);
       return match && match[1] || "";
@@ -735,7 +712,6 @@ var require_xhr = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/adapters/xhr.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     var settle = require_settle();
     var cookies = require_cookies();
@@ -888,7 +864,6 @@ var require_xhr = __commonJS({
 var require_null = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/null.js"(exports, module) {
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     module.exports = null;
   }
 });
@@ -898,7 +873,6 @@ var require_defaults = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/defaults/index.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     var normalizeHeaderName = require_normalizeHeaderName();
     var AxiosError = require_AxiosError();
@@ -1013,7 +987,6 @@ var require_transformData = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/core/transformData.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     var defaults = require_defaults();
     module.exports = function transformData(data, headers, fns) {
@@ -1031,7 +1004,6 @@ var require_isCancel = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/cancel/isCancel.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     module.exports = function isCancel(value) {
       return !!(value && value.__CANCEL__);
     };
@@ -1043,7 +1015,6 @@ var require_dispatchRequest = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/core/dispatchRequest.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     var transformData = require_transformData();
     var isCancel = require_isCancel();
@@ -1088,7 +1059,6 @@ var require_mergeConfig = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/core/mergeConfig.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     module.exports = function mergeConfig(config1, config2) {
       config2 = config2 || {};
@@ -1172,7 +1142,6 @@ var require_mergeConfig = __commonJS({
 var require_data = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/env/data.js"(exports, module) {
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     module.exports = {
       "version": "0.27.2"
     };
@@ -1184,7 +1153,6 @@ var require_validator = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/validator.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var VERSION = require_data().version;
     var AxiosError = require_AxiosError();
     var validators = {};
@@ -1243,7 +1211,6 @@ var require_Axios = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/core/Axios.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     var buildURL = require_buildURL();
     var InterceptorManager = require_InterceptorManager();
@@ -1366,7 +1333,6 @@ var require_CancelToken = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/cancel/CancelToken.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var CanceledError = require_CanceledError();
     function CancelToken(executor) {
       if (typeof executor !== "function") {
@@ -1450,7 +1416,6 @@ var require_spread = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/spread.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     module.exports = function spread(callback) {
       return function wrap(arr) {
         return callback.apply(null, arr);
@@ -1464,7 +1429,6 @@ var require_isAxiosError = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/helpers/isAxiosError.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     module.exports = function isAxiosError(payload) {
       return utils.isObject(payload) && payload.isAxiosError === true;
@@ -1477,7 +1441,6 @@ var require_axios = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/lib/axios.js"(exports, module) {
     "use strict";
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     var utils = require_utils();
     var bind = require_bind();
     var Axios = require_Axios();
@@ -1516,14 +1479,12 @@ var require_axios = __commonJS({
 var require_axios2 = __commonJS({
   "C:/Users/jiabin/Desktop/uni-app/shixun2/education-myapp/api/node_modules/axios/index.js"(exports, module) {
     init_define_process_env_UNI_STAT_TITLE_JSON();
-    init_define_process_env_UNI_STAT_UNI_CLOUD();
     module.exports = require_axios();
   }
 });
 
 // dep:axios
 init_define_process_env_UNI_STAT_TITLE_JSON();
-init_define_process_env_UNI_STAT_UNI_CLOUD();
 var axios_default = require_axios2();
 export {
   axios_default as default
