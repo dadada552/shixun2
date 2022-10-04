@@ -8,7 +8,17 @@
         "pages/study/study",
         "pages/miaowu/miaowu",
         "pages/tool/tool",
-        "pages/personal/personal"
+        "pages/personal/personal",
+        "pages/setup/setup",
+        "pages/user/user",
+        "pages/Collection/Collection",
+        "pages/member/member",
+        "pages/myQuan/myQuan",
+        "pages/messageList/messageList",
+        "pages/question/question",
+        "pages/myOrder/myOrder",
+        "pages/studyCard/studyCard",
+        "pages/address/address"
     ],
     "window": {
         "backgroundTextStyle": "light",

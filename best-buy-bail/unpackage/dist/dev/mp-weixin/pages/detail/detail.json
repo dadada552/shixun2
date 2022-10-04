@@ -1,5 +1,12 @@
 {
-  "navigationBarTitleText": "",
+  "navigationBarTitleText": "优购",
   "enablePullDownRefresh": false,
-  "usingComponents": {}
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#eb4450",
+  "usingComponents": {
+    "u-swiper": "../../uni_modules/vk-uview-ui/components/u-swiper/u-swiper",
+    "u-icon": "../../uni_modules/vk-uview-ui/components/u-icon/u-icon",
+    "u-parse": "../../uni_modules/vk-uview-ui/components/u-parse/u-parse",
+    "u-button": "../../uni_modules/vk-uview-ui/components/u-button/u-button"
+  }
 }

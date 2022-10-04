@@ -35,8 +35,8 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
       }
       clearTimeout(t);
       t = setTimeout(() => {
-        api_api.getSearchVal({ searchVal: data.searchVal }).then((res) => {
-          data.searchList = res;
+        api_api.getSearchVal(data.searchVal).then((res) => {
+          data.searchList = res.message;
         });
       }, 1e3);
     };

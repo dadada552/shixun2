@@ -1,42 +1,46 @@
 "use strict";
 var api_http = require("./http.js");
-const getBanner = (msg) => {
+const getBanner = () => {
   return api_http.http({
     url: "home/swiperdata"
-  }).then((res) => {
-    return res.message;
   });
 };
-const getHomeCate = (msg) => {
+const getHomeCate = () => {
   return api_http.http({
     url: "home/catitems"
-  }).then((res) => {
-    return res.message;
   });
 };
-const getFloorData = (msg) => {
+const getFloorData = () => {
   return api_http.http({
     url: "home/floordata"
-  }).then((res) => {
-    return res.message;
   });
 };
-const getCategories = (msg) => {
+const getCategories = () => {
   return api_http.http({
     url: "categories"
-  }).then((res) => {
-    return res.message;
   });
 };
 const getSearchVal = (msg) => {
   return api_http.http({
-    url: `goods/qsearch?query=${msg.searchVal}`
-  }).then((res) => {
-    return res.message;
+    url: `goods/qsearch?query=${msg}`
+  });
+};
+const getGoodsDetail = (msg) => {
+  return api_http.http({
+    url: `goods/detail?goods_id=${msg}`
+  });
+};
+const getToken = (msg) => {
+  return api_http.http({
+    url: "users/wxlogin",
+    method: "POST",
+    data: msg
   });
 };
 exports.getBanner = getBanner;
 exports.getCategories = getCategories;
 exports.getFloorData = getFloorData;
+exports.getGoodsDetail = getGoodsDetail;
 exports.getHomeCate = getHomeCate;
 exports.getSearchVal = getSearchVal;
+exports.getToken = getToken;

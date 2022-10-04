@@ -5,7 +5,8 @@
     "pages/car/car",
     "pages/mine/mine",
     "pages/search/search",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/login/login"
   ],
   "window": {
     "navigationBarTextStyle": "black",

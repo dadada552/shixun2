@@ -38,7 +38,6 @@
 	}
 	//获取轮播图
 	getBanner().then((res:any)=>{
-		console.log(res);
 		data.bannerList = res.message
 	})
 	// 获取首页导航栏数据

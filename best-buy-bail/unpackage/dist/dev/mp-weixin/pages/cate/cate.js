@@ -32,8 +32,8 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
       });
     };
     api_api.getCategories().then((res) => {
-      data.cataList = res;
-      data.activeList = res.find((item) => {
+      data.cataList = res.message;
+      data.activeList = res.message.find((item) => {
         return item.cat_id == 1;
       }).children;
     });

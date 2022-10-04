@@ -35,6 +35,7 @@ if (!Math) {
   "./pages/mine/mine.js";
   "./pages/search/search.js";
   "./pages/detail/detail.js";
+  "./pages/login/login.js";
 }
 const _sfc_main = {
   onLaunch: function() {

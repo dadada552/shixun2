@@ -2,16 +2,15 @@
 	<view class="top">
 		<image :src="prop.data.floor_title.image_src" mode="widthFix"></image>
 	</view>
-	<view class="content" >
+	<view class="content">
 		<view class="content-item" v-for="item,index in prop.data.product_list" :key="index">
 			<image :src="item.image_src"></image>
-			
 		</view>
 	</view>
 </template>
 
 <script lang="ts" setup>
-	import {defineProps,defineEmits} from 'vue'
+	import {defineProps} from 'vue'
 	
 	const prop = defineProps({
 		data:Object
@@ -27,7 +26,8 @@
 	grid-template-rows:  200rpx 200rpx;
 	grid-template: 
 	"a1 a2 a3" 
-	"a1 a4 a5";
+	"a1 a4 a5" 
+	;
 	
 	.content-item:nth-child(1){
 		grid-area: a1;

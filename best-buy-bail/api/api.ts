@@ -39,11 +39,19 @@ const getGoodsDetail: (msg: number) =>Promise<TS.searchDetail>  = (msg) => {
 		url: `goods/detail?goods_id=${msg}`
 	})
 }
+const getToken:(msg:any) =>Promise<TS.Token> = (msg)=>{
+	return http({
+		url:'users/wxlogin',
+		method:'POST',
+		data:msg
+	})
+}
 export {
 	getBanner,
 	getHomeCate,
 	getFloorData,
 	getCategories,
 	getSearchVal,
-	getGoodsDetail
+	getGoodsDetail,
+	getToken
 }

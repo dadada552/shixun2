@@ -27,13 +27,13 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
       });
     };
     api_api.getBanner().then((res) => {
-      data.bannerList = res;
+      data.bannerList = res.message;
     });
     api_api.getHomeCate().then((res) => {
-      data.homeCateList = res;
+      data.homeCateList = res.message;
     });
     api_api.getFloorData().then((res) => {
-      data.floorData = res;
+      data.floorData = res.message;
     });
     return (_ctx, _cache) => {
       return {

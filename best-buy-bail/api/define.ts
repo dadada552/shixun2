@@ -123,6 +123,20 @@
 		attr_write:string,
 		attr_vals:string,
 	}
+	interface Token {
+		user_id:number,
+		user_email_code:null,
+		is_active:null,
+		user_sex:string,
+		user_qq:string,
+		user_tel:string,
+		user_xueli:string,
+		user_hobby:string,
+		user_introduce:null,
+		create_time:string,
+		update_time:string,
+		token:string
+	}
 	export {
 		BannerItem,
 		HomeCateListItme,
@@ -130,5 +144,6 @@
 		homeData,
 		CateList,
 		searchList,
-		searchDetail
+		searchDetail,
+		Token
 	}

@@ -18,28 +18,40 @@
 				</view>
 			</view>
 			<u-parse :html="data.goodsItem.goods_introduce"></u-parse>
-			<u-grid :col="5">
-					<u-grid-item>
-						<u-icon name="photo" :size="46"></u-icon>
-						<view class="grid-text">图片</view>
-					</u-grid-item>
-					<u-grid-item>
-						<u-icon name="lock" :size="46"></u-icon>
-						<view class="grid-text">锁头</view>
-					</u-grid-item>
-					<u-grid-item>
-						<u-icon name="hourglass" :size="46"></u-icon>
-						<view class="grid-text">沙漏</view>
-					</u-grid-item>
-					<u-grid-item>
-						<u-icon name="hourglass" :size="46"></u-icon>
-						<view class="grid-text">沙漏</view>
-					</u-grid-item>
-					<u-grid-item>
-						<u-icon name="hourglass" :size="46"></u-icon>
-						<view class="grid-text">沙漏</view>
-					</u-grid-item>
-				</u-grid>
+			<view class="bottom">
+				<view class="iconbox">
+					<view class="icon">
+						<u-icon name="share"></u-icon>
+					</view>
+					<view class="name">
+						客服
+					</view>
+					
+				</view>
+				<view class="iconbox">
+					<view class="icon">
+						<u-icon name="share"></u-icon>
+					</view>
+					<view class="name">
+						分享
+					</view>
+					
+				</view>
+				<view class="iconbox">
+					<view class="icon">
+						<u-icon name="shopping-cart"></u-icon>
+					</view>
+					<view class="name">
+						购物车
+					</view>
+				</view>
+				<view class="btnbox">
+					<u-button class="btn" type="warning">加入购物车</u-button>
+				</view>
+				<view class="btnbox">
+					<u-button class="btn" type="error">立即购买</u-button>
+				</view>
+			</view>
 		</view>
 </template>
 
@@ -53,7 +65,6 @@ import {getGoodsDetail} from '@/api/api'
  })
 	onLoad((opt)=>{
 			getGoodsDetail(opt.id).then((res:any)=>{
-				console.log(res);
 				data.goodsItem =res.message
 			})
 	})
@@ -76,6 +87,25 @@ import {getGoodsDetail} from '@/api/api'
 		width: 160rpx;
 		text-align: center;
 		border-left: 1px solid #000;
+	}
+}
+.bottom{
+	position: fixed;
+	display: flex;
+	background-color: #fff;
+	justify-content: space-between;
+	width: 100%;
+	bottom: 0;
+	z-index: 9;
+	.iconbox{
+		flex: 1;
+		text-align: center;
+	}
+	.btnbox{
+		flex: 2;
+		.btn{
+			border-radius: 0;
+		}
 	}
 }
 </style>
