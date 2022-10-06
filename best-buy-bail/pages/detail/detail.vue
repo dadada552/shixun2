@@ -46,7 +46,7 @@
 					</view>
 				</view>
 				<view class="btnbox">
-					<u-button class="btn" type="warning">加入购物车</u-button>
+					<u-button class="btn" type="warning" @click="addcar">加入购物车</u-button>
 				</view>
 				<view class="btnbox">
 					<u-button class="btn" type="error">立即购买</u-button>
@@ -61,8 +61,58 @@ import { onLoad } from '@dcloudio/uni-app'
 import {getGoodsDetail} from '@/api/api'
  const data = reactive({
 	 goodsItem:{},
-	 
+	 carList:[]
  })
+ const addcar = ()=>{
+	let obj = {
+		price:data.goodsItem.goods_price,
+		name:data.goodsItem.goods_name,
+		pic:data.goodsItem.goods_small_logo,
+		num:1,
+		status:false,
+		id:data.goodsItem.goods_id
+	}
+	
+	uni.getStorage({
+		key:'carList',
+		success: (res) => {
+			data.carList = res.data
+		let index =	data.carList.findIndex((item)=>{
+			return item.id == obj.id
+			})	
+			if(index != -1){
+				data.carList[index].num ++
+				uni.setStorage({
+					key:'carList',
+					data:data.carList,
+					success:()=> {
+						console.log(1);
+					}
+				})
+			}else{
+				data.carList.push(obj)
+				uni.setStorage({
+					key:'carList',
+					data:data.carList,
+					success:()=> {
+						console.log(2);
+					}
+				})
+			}
+		},
+		fail() {
+			uni.setStorage({
+				key:'carList',
+				data:data.carList,
+				success:()=> {
+					console.log(3);
+				}
+			})
+		}
+	})
+	
+	
+ }
 	onLoad((opt)=>{
 			getGoodsDetail(opt.id).then((res:any)=>{
 				data.goodsItem =res.message

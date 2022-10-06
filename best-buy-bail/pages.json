@@ -74,6 +74,17 @@
             }
             
         }
+        ,{
+            "path" : "pages/getAdderss/getAdderss",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加收货地址",
+                "enablePullDownRefresh": false,
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#eb4450"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

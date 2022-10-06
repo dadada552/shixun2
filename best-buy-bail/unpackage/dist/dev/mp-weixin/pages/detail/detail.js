@@ -20,8 +20,56 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
   __name: "detail",
   setup(__props) {
     const data = common_vendor.reactive({
-      goodsItem: {}
+      goodsItem: {},
+      carList: []
     });
+    const addcar = () => {
+      let obj = {
+        price: data.goodsItem.goods_price,
+        name: data.goodsItem.goods_name,
+        pic: data.goodsItem.goods_small_logo,
+        num: 1,
+        status: false,
+        id: data.goodsItem.goods_id
+      };
+      common_vendor.index.getStorage({
+        key: "carList",
+        success: (res) => {
+          data.carList = res.data;
+          let index = data.carList.findIndex((item) => {
+            return item.id == obj.id;
+          });
+          if (index != -1) {
+            data.carList[index].num++;
+            common_vendor.index.setStorage({
+              key: "carList",
+              data: data.carList,
+              success: () => {
+                console.log(1);
+              }
+            });
+          } else {
+            data.carList.push(obj);
+            common_vendor.index.setStorage({
+              key: "carList",
+              data: data.carList,
+              success: () => {
+                console.log(2);
+              }
+            });
+          }
+        },
+        fail() {
+          common_vendor.index.setStorage({
+            key: "carList",
+            data: data.carList,
+            success: () => {
+              console.log(3);
+            }
+          });
+        }
+      });
+    };
     common_vendor.onLoad((opt) => {
       api_api.getGoodsDetail(opt.id).then((res) => {
         data.goodsItem = res.message;
@@ -51,10 +99,11 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         h: common_vendor.p({
           name: "shopping-cart"
         }),
-        i: common_vendor.p({
+        i: common_vendor.o(addcar),
+        j: common_vendor.p({
           type: "warning"
         }),
-        j: common_vendor.p({
+        k: common_vendor.p({
           type: "error"
         })
       };

@@ -23,67 +23,42 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.topBtn {
-  padding: 20rpx;
-}
-.title {
-  border-top: 1px solid #eb4450;
-  color: #eb4450;
-  border-bottom: 1px solid #eb4450;
-  padding: 20rpx 0;
-  text-indent: 3em;
-}
-.bottom {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+.u-numberbox.data-v-1823d8aa {
+  display: inline-flex;
   align-items: center;
 }
-.bottom .right {
-  width: 220rpx;
-}
-.bottom .right .btn {
-  border-radius: 0;
-}
-.bottom .left {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-}
-.bottom .left .red {
-  color: red;
-  font-weight: 700;
-}
-.content .item {
-  display: flex;
-  margin: 20rpx 0;
-}
-.content .item .item-check {
-  flex: 1;
+.u-number-input.data-v-1823d8aa {
+  position: relative;
   text-align: center;
-  line-height: 140rpx;
-}
-.content .item .item-img {
-  flex: 2;
-  text-align: center;
-}
-.content .item .item-desc {
-  flex: 3;
-  line-clamp: 2;
-  box-orient: vertical;
-}
-.content .item .item-desc .item-goodsName {
-  height: 76rpx;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.content .item .item-desc .item-price {
+  padding: 0;
+  margin: 0 6rpx;
   display: flex;
-  justify-content: space-between;
-  margin-top: 20rpx;
+  align-items: center;
+  justify-content: center;
 }
-.userInfo .username {
-  margin-right: 50rpx;
+.u-icon-plus.data-v-1823d8aa,
+.u-icon-minus.data-v-1823d8aa {
+  width: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.u-icon-plus.data-v-1823d8aa {
+  border-radius: 0 8rpx 8rpx 0;
+}
+.u-icon-minus.data-v-1823d8aa {
+  border-radius: 8rpx 0 0 8rpx;
+}
+.u-icon-disabled.data-v-1823d8aa {
+  color: #c8c9cc !important;
+  background: #f7f8fa !important;
+}
+.u-input-disabled.data-v-1823d8aa {
+  color: #c8c9cc !important;
+  background-color: #f2f3f5 !important;
+}
+.num-btn.data-v-1823d8aa {
+  font-weight: 550;
+  position: relative;
+  top: 0rpx;
 }

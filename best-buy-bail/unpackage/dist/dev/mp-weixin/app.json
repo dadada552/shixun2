@@ -6,7 +6,8 @@
     "pages/mine/mine",
     "pages/search/search",
     "pages/detail/detail",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/getAdderss/getAdderss"
   ],
   "window": {
     "navigationBarTextStyle": "black",

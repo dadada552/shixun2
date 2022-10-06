@@ -6082,6 +6082,7 @@ const createHook = (lifecycle) => (hook, target = getCurrentInstance()) => {
 };
 const onLoad = /* @__PURE__ */ createHook(ON_LOAD);
 exports._export_sfc = _export_sfc;
+exports.computed$1 = computed$1;
 exports.createSSRApp = createSSRApp;
 exports.defineComponent = defineComponent;
 exports.e = e;
@@ -6095,3 +6096,4 @@ exports.reactive = reactive;
 exports.resolveComponent = resolveComponent;
 exports.s = s;
 exports.t = t;
+exports.unref = unref;

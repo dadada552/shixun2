@@ -36,7 +36,7 @@ const godetail = (obj:any)=>{
 }
 
 
-let t:null = null
+let t:any= null
 const getSearch = () =>{
 	if(data.searchVal == ''){
 		return false
@@ -44,6 +44,7 @@ const getSearch = () =>{
 	clearTimeout(t)
 	t = setTimeout(()=>{
 		getSearchVal(data.searchVal).then((res:any)=>{
+			console.log(res);
 			data.searchList = res.message
 		})
 	},1000)

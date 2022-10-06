@@ -35,7 +35,7 @@
     "minifyWXML": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.26.1",
+  "libVersion": "",
   "appid": "wxbea397babb20ef71",
   "projectname": "best-buy-bail",
   "condition": {},
