@@ -37,7 +37,7 @@
 					</view>
 					
 				</view>
-				<view class="iconbox">
+				<view class="iconbox" @click="gocar">
 					<view class="icon">
 						<u-icon name="shopping-cart"></u-icon>
 					</view>
@@ -63,6 +63,13 @@ import {getGoodsDetail} from '@/api/api'
 	 goodsItem:{},
 	 carList:[]
  })
+ 
+ 
+ const gocar = ()=>{
+	 uni.switchTab({
+	 	url:'/pages/car/car'
+	 })
+ }
  const addcar = ()=>{
 	let obj = {
 		price:data.goodsItem.goods_price,

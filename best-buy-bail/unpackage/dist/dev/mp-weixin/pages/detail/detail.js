@@ -23,6 +23,11 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
       goodsItem: {},
       carList: []
     });
+    const gocar = () => {
+      common_vendor.index.switchTab({
+        url: "/pages/car/car"
+      });
+    };
     const addcar = () => {
       let obj = {
         price: data.goodsItem.goods_price,
@@ -99,11 +104,12 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         h: common_vendor.p({
           name: "shopping-cart"
         }),
-        i: common_vendor.o(addcar),
-        j: common_vendor.p({
+        i: common_vendor.o(gocar),
+        j: common_vendor.o(addcar),
+        k: common_vendor.p({
           type: "warning"
         }),
-        k: common_vendor.p({
+        l: common_vendor.p({
           type: "error"
         })
       };

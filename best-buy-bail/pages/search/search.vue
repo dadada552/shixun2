@@ -7,6 +7,7 @@
 			placeholder-style="color:#aaa;"
 			:focus="true" :border="true"
 			@blur="getSearch"
+			style="width: 100%;"
 			 />
 			 <u-button v-show="data.searchVal != 0" @click="clear">取消</u-button>
 		</view>
@@ -59,6 +60,7 @@ const getSearch = () =>{
 	padding: 20rpx 20rpx 0;
 	.top-box{
 		display: flex;
+		width: 100%;
 		.ipt{
 		margin-right: 10rpx;
 		background-color: #fff;
